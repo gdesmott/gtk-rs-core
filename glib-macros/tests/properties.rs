@@ -77,6 +77,11 @@ mod foo {
         nick: String,
     }
 
+    #[derive(Default, Clone)]
+    struct Inner {
+        senum: SimpleEnum,
+    }
+
     pub mod imp {
         use std::{cell::OnceCell, rc::Rc};
 
@@ -151,6 +156,8 @@ mod foo {
             construct_only_cell: OnceCell<u32>,
             #[property(get, set = Self::set_construct_only_custom, construct_only)]
             construct_only_custom_setter: OnceCell<Option<String>>,
+            #[property(get, set, member = senum)]
+            inner_enum: Mutex<Inner>,
         }
 
         #[glib::object_subclass]
